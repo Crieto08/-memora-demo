@@ -8,6 +8,9 @@
     :root {
       --bg: #eef1f4;
       --maxw: 1100px;
+      --blue: #17375c;
+      --blue2: #21457d;
+      --white: rgba(255,255,255,.92);
     }
     * { box-sizing: border-box; }
     html, body { margin: 0; padding: 0; background: var(--bg); }
@@ -16,7 +19,7 @@
       font-family: Georgia, "Times New Roman", serif;
       display: flex;
       justify-content: center;
-      color: #16375d;
+      color: var(--blue);
     }
     .page {
       width: min(100%, var(--maxw));
@@ -25,7 +28,6 @@
       overflow-x: hidden;
       background: var(--bg);
     }
-
     .hero {
       position: relative;
       width: 100%;
@@ -36,7 +38,6 @@
       overflow: hidden;
       padding-top: 20px;
     }
-
     .bg-wrap {
       position: absolute;
       inset: 0;
@@ -54,10 +55,9 @@
       user-select: none;
       -webkit-user-drag: none;
     }
-
     .title {
       position: absolute;
-      top: clamp(26px, 5.5vw, 54px);
+      top: clamp(24px, 5.5vw, 54px);
       left: 50%;
       transform: translateX(-50%);
       width: min(72vw, 720px);
@@ -67,12 +67,11 @@
     .title img,
     .footer-strip img,
     .card img { width: 100%; height: auto; display: block; }
-
     .cards {
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
-      bottom: clamp(110px, 16vh, 170px);
+      bottom: clamp(170px, 22vh, 230px);
       width: min(90vw, 760px);
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -80,7 +79,6 @@
       z-index: 4;
       align-items: end;
     }
-
     .card {
       display: block;
       text-decoration: none;
@@ -94,7 +92,36 @@
       transform: translateY(-3px);
       filter: brightness(1.02);
     }
-
+    .extra-action {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: clamp(98px, 12vh, 142px);
+      z-index: 5;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: min(78vw, 390px);
+      padding: 14px 26px;
+      border-radius: 999px;
+      background: var(--white);
+      border: 1px solid rgba(23,55,92,.12);
+      box-shadow: 0 12px 32px rgba(18,35,56,.09);
+      color: var(--blue);
+      text-decoration: none;
+      font-size: clamp(20px, 2.4vw, 28px);
+      line-height: 1;
+      letter-spacing: -.01em;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: transform .18s ease, background .18s ease;
+      text-align: center;
+    }
+    .extra-action:hover,
+    .extra-action:focus-visible {
+      transform: translateX(-50%) translateY(-2px);
+      background: rgba(255,255,255,.98);
+    }
     .footer-strip {
       position: absolute;
       left: 50%;
@@ -104,51 +131,32 @@
       z-index: 3;
       pointer-events: none;
     }
-
-    /* Mobil fix: két kisebb kártya maradjon egy sorban, a cím legyen kisebb és lejjebb */
     @media (max-width: 700px) {
-      .hero {
-        min-height: 100svh;
-        padding-top: 0;
-      }
-      .bg {
-        width: 100%;
-        height: 100%;
-        min-height: 100svh;
-        object-fit: cover;
-        object-position: center top;
-      }
-      .title {
-        width: min(74vw, 300px);
-        top: calc(env(safe-area-inset-top) + 56px);
-      }
+      .page, .hero { min-height: 100svh; }
+      .hero { padding-top: calc(env(safe-area-inset-top) + 18px); }
+      .bg { width: 100%; height: auto; min-height: 54svh; object-fit: cover; object-position: top center; }
+      .title { width: min(86vw, 420px); top: calc(env(safe-area-inset-top) + 28px); }
       .cards {
-        width: min(88vw, 340px);
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-        bottom: 118px;
-      }
-      .card { border-radius: 22px; }
-      .footer-strip {
-        width: min(88vw, 360px);
-        bottom: 26px;
-      }
-    }
-
-    @media (max-width: 420px) {
-      .title {
-        width: min(72vw, 280px);
-        top: calc(env(safe-area-inset-top) + 64px);
-      }
-      .cards {
-        width: min(86vw, 330px);
-        gap: 8px;
-        bottom: 112px;
-      }
-      .footer-strip {
         width: min(86vw, 340px);
-        bottom: 24px;
+        grid-template-columns: 1fr 1fr;
+        bottom: 170px;
+        gap: 12px;
       }
+      .card { border-radius: 24px; }
+      .extra-action {
+        min-width: min(88vw, 360px);
+        bottom: 98px;
+        padding: 12px 20px;
+        font-size: 18px;
+      }
+      .footer-strip { width: min(88vw, 420px); bottom: 26px; }
+    }
+    @media (max-width: 420px) {
+      .title { width: min(84vw, 360px); top: calc(env(safe-area-inset-top) + 34px); }
+      .bg { min-height: 50svh; }
+      .cards { width: min(88vw, 352px); bottom: 166px; gap: 10px; }
+      .extra-action { width: min(88vw, 352px); min-width: 0; bottom: 96px; font-size: 17px; }
+      .footer-strip { width: min(86vw, 360px); }
     }
   </style>
 </head>
@@ -170,6 +178,8 @@
           <img src="Jobb_gomb.png" alt="Következő állomás" />
         </a>
       </div>
+
+      <a class="extra-action" href="helyszinvalaszto.html">Másik helyszín megtekintése</a>
 
       <div class="footer-strip" aria-hidden="true">
         <img src="Also_text.png" alt="2 perc olvasás, Helyszín" />
