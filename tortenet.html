@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Memoris – Történet</title>
+  <style>
+    :root {
+      --bg: #f1f9fd;
+      --navy: #163c72;
+      --navy-dark: #10345e;
+      --text: #173a68;
+      --shadow: 0 8px 26px rgba(27, 54, 92, 0.16);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body {
+      background: var(--bg);
+      font-family: "Trebuchet MS", Arial, sans-serif;
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+    }
+
+    .screen {
+      width: min(100vw, 375px);
+      min-height: 100dvh;
+      padding: env(safe-area-inset-top) 22px calc(24px + env(safe-area-inset-bottom));
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 18px;
+      margin-bottom: 18px;
+    }
+
+    .logo img { width: 54px; display:block; }
+    .top-actions { display:flex; gap:10px; }
+    .icon-btn {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.42);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.55);
+      box-shadow: var(--shadow);
+      text-decoration:none;
+    }
+    .icon-btn img { width:24px; height:24px; }
+
+    .hero {
+      position: relative;
+      height: 157px;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.6);
+      box-shadow: var(--shadow);
+      background: #dfeef6;
+      margin-bottom: 12px;
+    }
+    .hero::before {
+      content:"";
+      position:absolute; inset:0;
+      background:url('./Torony.png') center 30% / cover no-repeat;
+    }
+    .hero::after {
+      content:"";
+      position:absolute; inset:0;
+      background: linear-gradient(180deg, rgba(16,52,94,0.65) 0%, rgba(16,52,94,0.35) 30%, rgba(241,249,253,0.08) 55%, rgba(241,249,253,0.90) 100%);
+    }
+    .hero-inner {
+      position:relative; z-index:1; height:100%;
+      display:flex; flex-direction:column; align-items:flex-start; justify-content:space-between;
+      padding:16px 18px 16px;
+    }
+    .hero-title {
+      color:#fff;
+      font-size:25px;
+      line-height:1.08;
+      font-weight:700;
+      margin:0;
+      max-width: 90%;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.25);
+    }
+
+    .play-pill {
+      align-self: center;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 144px;
+      height: 36px;
+      padding: 0 14px;
+      border-radius: 11px;
+      background: rgba(255,255,255,0.64);
+      border: 1px solid rgba(255,255,255,0.6);
+      box-shadow: 0 8px 20px rgba(23,58,104,0.12);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      color: var(--navy-dark);
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: auto;
+      margin-bottom: 6px;
+    }
+    .play-pill img { width: 13px; height: 13px; }
+
+    .text-card {
+      min-height: 492px;
+      border-radius: 16px;
+      background: rgba(231, 240, 247, 0.65);
+      border: 1px solid rgba(195, 211, 224, 0.85);
+      box-shadow: var(--shadow);
+      padding: 18px 18px 20px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+    .story {
+      font-size: 18px;
+      line-height: 1.32;
+      letter-spacing: -0.01em;
+    }
+    .story p { margin: 0 0 18px; }
+
+    .back-btn {
+      align-self:center;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      text-decoration:none;
+      color: var(--navy-dark);
+      font-size: 16px;
+      font-weight:700;
+      margin-top: 10px;
+    }
+    .back-btn img { width: 16px; height: 16px; }
+
+    .bottom-bar {
+      margin-top: 12px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.36);
+      border: 1px solid rgba(255,255,255,0.55);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: 1fr 1px 1fr;
+      align-items: center;
+      padding: 16px 18px;
+      gap: 14px;
+    }
+    .bottom-divider { width:1px; height:24px; background: rgba(22,60,114,0.25); justify-self:center; }
+    .info-item {
+      display:flex; align-items:center; justify-content:center; gap:8px;
+      color: var(--navy-dark); font-size:14px; white-space:nowrap;
+    }
+    .info-item img { width:22px; height:22px; }
+  </style>
+</head>
+<body>
+  <main class="screen">
+    <header class="topbar">
+      <a class="logo" href="index.html" aria-label="Memoris főoldal"><img src="./Memoris_logo.svg" alt="Memoris logo"></a>
+      <div class="top-actions">
+        <a class="icon-btn" href="#" aria-label="Nyelv választó"><img src="./Web_logo.svg" alt="Nyelv"></a>
+        <a class="icon-btn" href="#" aria-label="Menü"><img src="./3line.svg" alt="Menü"></a>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-inner">
+        <h1 class="hero-title">Fedezd fel a történetét</h1>
+        <button class="play-pill" type="button" id="playBtn">
+          <img src="./Play_sound_icon.svg" alt="" />
+          <span>Meghallgatom</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="text-card">
+      <div class="story">
+        <p>A szeghalmi katolikus templom különlegessége a mellette álló fa harangtorony, mely az alföldi építészet egyik jellegzetes eleme. Egyszerű formája és természetes anyaghasználata jól illeszkedik a település hagyományos arculatához.</p>
+
+        <p>A torony harangjai nemcsak az istentiszteletek idejét jelezték, hanem a közösségi élet fontos eseményeiben is szerepet kaptak. Hangjuk egyszerre jelentett hívást, figyelmeztetést és összetartozást.</p>
+
+        <p>Ma a harangtorony a múlt emlékeit őrzi, miközben a város egyik karakteres pontjaként emlékeztet arra, hogyan kapcsolódott össze hit, közösség és mindennapi élet Szeghalmon.</p>
+      </div>
+
+      <a class="back-btn" href="index.html">
+        <img src="./Back_arrow_icon.svg" alt="" />
+        <span>Vissza</span>
+      </a>
+    </section>
+
+    <section class="bottom-bar" aria-label="Információk">
+      <div class="info-item">
+        <img src="./Time_icon.svg" alt="" />
+        <span>2 perc olvasás</span>
+      </div>
+      <div class="bottom-divider" aria-hidden="true"></div>
+      <div class="info-item">
+        <img src="./Mappoint_icon.svg" alt="" />
+        <span>Helyszín</span>
+      </div>
+    </section>
+
+    <audio id="storyAudio" preload="auto">
+      <source src="./Sound.mp3" type="audio/mpeg">
+    </audio>
+  </main>
+
+  <script>
+    const audio = document.getElementById('storyAudio');
+    const playBtn = document.getElementById('playBtn');
+    playBtn.addEventListener('click', () => {
+      audio.currentTime = 0;
+      audio.play();
+    });
+  </script>
+</body>
+</html>
